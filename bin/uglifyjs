@@ -482,7 +482,7 @@ async.eachLimit(files, 1, function (file, cb) {
         output = output.get();
 
         if (SOURCE_MAP) {
-            fs.writeFileSync(ARGS.source_map, SOURCE_MAP, "utf8");
+            try { fs.writeFileSync(ARGS.source_map, SOURCE_MAP, "utf8"); } catch(e) { fs.writeFileSync(ARGS.source_map, SOURCE_MAP.toString(), "utf8"); }
             var source_map_url = ARGS.source_map_url || (
                 P_RELATIVE
                     ? path.relative(path.dirname(OUTPUT_FILE), ARGS.source_map)
